@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BizHelper AI</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#080d1c;
+color:white;
+min-height:100vh;
+}
+
+header{
+height:70px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 7%;
+border-bottom:1px solid #252e49;
+background:#0b1124ee;
+backdrop-filter:blur(12px);
+position:sticky;
+top:0;
+z-index:20;
+}
+
+.logo{
+font-size:25px;
+font-weight:bold;
+}
+
+.logo span{
+color:#6c63ff;
+}
+
+button{
+border:0;
+border-radius:10px;
+padding:12px 18px;
+font-weight:bold;
+cursor:pointer;
+transition:.2s;
+}
+
+button:hover{
+transform:translateY(-2px);
+}
+
+.login-btn,
+.primary{
+background:#6c63ff;
+color:white;
+}
+
+.container{
+width:90%;
+max-width:1100px;
+margin:auto;
+}
+
+.hero{
+text-align:center;
+padding:80px 15px 45px;
+animation:fadeUp .7s ease;
+}
+
+.hero h1{
+font-size:clamp(38px,7vw,70px);
+margin-bottom:18px;
+}
+
+.hero h1 span{
+color:#6c63ff;
+}
+
+.hero p{
+color:#aeb8d4;
+font-size:18px;
+line-height:1.6;
+max-width:680px;
+margin:auto;
+}
+
+.card{
+background:#11182c;
+border:1px solid #273252;
+border-radius:18px;
+padding:25px;
+margin:20px 0;
+box-shadow:0 15px 45px #0005;
+animation:fadeUp .5s ease;
+}
+
+.card h2{
+margin-bottom:18px;
+}
+
+input,
+textarea,
+select{
+width:100%;
+padding:14px;
+margin:8px 0;
+border-radius:10px;
+border:1px solid #34415f;
+background:#080f21;
+color:white;
+outline:none;
+}
+
+textarea{
+min-height:120px;
+resize:vertical;
+}
+
+.primary{
+width:100%;
+margin-top:10px;
+}
+
+.hidden{
+display:none!important;
+}
+
+
+/* WELCOME */
+
+.welcome{
+background:linear-gradient(135deg,#151d3b,#11182c);
+border:1px solid #313d68;
+padding:30px;
+border-radius:20px;
+margin-top:25px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:20px;
+animation:fadeUp .6s ease;
+}
+
+.welcome h2{
+font-size:30px;
+margin-bottom:8px;
+}
+
+.welcome p{
+color:#aeb8d4;
+}
+
+.owner{
+display:inline-block;
+margin-top:12px;
+padding:7px 12px;
+border-radius:20px;
+background:#30286d;
+color:#b9b3ff;
+font-size:13px;
+font-weight:bold;
+}
+
+.user-box{
+text-align:right;
+}
+
+.avatar{
+width:60px;
+height:60px;
+border-radius:50%;
+background:#6c63ff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:25px;
+font-weight:bold;
+margin-left:auto;
+margin-bottom:8px;
+}
+
+
+/* STATS */
+
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+margin-top:20px;
+}
+
+.stat{
+background:#151d34;
+padding:20px;
+border-radius:15px;
+border:1px solid #293454;
+}
+
+.stat small{
+color:#8e99b5;
+}
+
+.stat strong{
+display:block;
+font-size:24px;
+margin-top:8px;
+color:#9a94ff;
+}
+
+
+/* RESULT */
+
+.result{
+white-space:pre-wrap;
+background:#080e1e;
+padding:18px;
+border-radius:12px;
+margin-top:15px;
+line-height:1.7;
+color:#dce3f7;
+}
+
+
+/* TOOLS */
+
+.calculator{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+}
+
+.calc-box{
+background:#151d34;
+padding:15px;
+border-radius:12px;
+}
+
+.calc-result{
+margin-top:18px;
+padding:20px;
+border-radius:12px;
+background:#0a1123;
+line-height:1.8;
+}
+
+
+/* PLANS */
+
+.plans{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+.plan{
+text-align:center;
+background:#151d34;
+border:1px solid #303b5d;
+padding:25px;
+border-radius:16px;
+}
+
+.price{
+font-size:38px;
+font-weight:bold;
+color:#918bff;
+margin:15px;
+}
+
+
+/* ANIMATION */
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(25px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+header{
+padding:0 5%;
+}
+
+.hero{
+padding-top:50px;
+}
+
+.welcome{
+flex-direction:column;
+align-items:flex-start;
+}
+
+.user-box{
+text-align:left;
+}
+
+.avatar{
+margin-left:0;
+}
+
+.stats,
+.calculator,
+.plans{
+grid-template-columns:1fr;
+}
+
+}
+
+footer{
+text-align:center;
+padding:40px;
+color:#68738f;
+border-top:1px solid #252e49;
+margin-top:30px;
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="logo">
+Biz<span>Helper</span> AI
+</div>
+
+<button class="login-btn" onclick="showLogin()">
+Login
+</button>
+
+</header>
+
+
+<section class="hero">
+
+<h1>
+Grow Your Business With <span>AI</span>
+</h1>
+
+<p>
+Create product descriptions, marketing content,
+SEO ideas and business content faster with BizHelper AI.
+</p>
+
+</section>
+
+
+<div class="container">
+
+
+<!-- LOGIN -->
+
+<div id="loginBox" class="card">
+
+<h2>Welcome Back 👋</h2>
+
+<input
+id="loginEmail"
+type="email"
+placeholder="Email"
+>
+
+<input
+id="loginPassword"
+type="password"
+placeholder="Password"
+>
+
+<button class="primary" onclick="login()">
+Login
+</button>
+
+<p id="loginMessage"></p>
+
+<br>
+
+<button onclick="showSignup()">
+Create New Account
+</button>
+
+</div>
+
+
+<!-- SIGNUP -->
+
+<div id="signupBox" class="card hidden">
+
+<h2>Create Your Account</h2>
+
+<input
+id="signupName"
+placeholder="Your Name"
+>
+
+<input
+id="signupEmail"
+type="email"
+placeholder="Email"
+>
+
+<input
+id="signupPassword"
+type="password"
+placeholder="Password"
+>
+
+<button class="primary" onclick="signup()">
+Create Account
+</button>
+
+<p id="signupMessage"></p>
+
+<br>
+
+<button onclick="showLogin()">
+Back to Login
+</button>
+
+</div>
+
+
+<!-- DASHBOARD -->
+
+<div id="dashboard" class="hidden">
+
+
+<!-- WELCOME -->
+
+<div class="welcome">
+
+<div>
+
+<h2>
+Welcome back, <span id="welcomeName">User</span> 👋
+</h2>
+
+<p>
+Good to see you again. Let's build something great today.
+</p>
+
+<span id="ownerBadge" class="owner hidden">
+👑 Owner Account
+</span>
+
+</div>
+
+
+<div class="user-box">
+
+<div id="avatar" class="avatar">
+U
+</div>
+
+</div>
+
+</div>
+
+
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="stat">
+
+<small>Account</small>
+
+<strong id="userEmail">
+User
+</strong>
+
+</div>
+
+
+<div class="stat">
+
+<small>AI Credits</small>
+
+<strong id="credits">
+0
+</strong>
+
+</div>
+
+
+<div class="stat">
+
+<small>Status</small>
+
+<strong id="status">
+Active
+</strong>
+
+</div>
+
+</div>
+
+
+<!-- AI TOOL -->
+
+<div class="card">
+
+<h2>🤖 AI Business Generator</h2>
+
+<input
+id="productName"
+placeholder="Product name"
+/>
+
+<textarea
+id="productDetails"
+placeholder="Product details..."
+></textarea>
+
+
+<select id="task">
+
+<option>
+Product Description
+</option>
+
+<option>
+Product Features
+</option>
+
+<option>
+SEO Keywords
+</option>
+
+<option>
+Ad Copy
+</option>
+
+<option>
+Social Media Captions
+</option>
+
+<option>
+Complete Product Listing
+</option>
+
+</select>
+
+
+<button
+class="primary"
+onclick="generate()"
+>
+
+Generate With AI ✨
+
+</button>
+
+
+<div
+id="result"
+class="result hidden"
+></div>
+
+</div>
+
+
+<!-- REVENUE -->
+
+<div class="card">
+
+<h2>📊 Revenue Estimator</h2>
+
+<div class="calculator">
+
+<div class="calc-box">
+
+<label>Selling Price</label>
+
+<input
+id="sellPrice"
+type="number"
+placeholder="20"
+/>
+
+</div>
+
+
+<div class="calc-box">
+
+<label>Product Cost</label>
+
+<input
+id="productCost"
+type="number"
+placeholder="8"
+/>
+
+</div>
+
+
+<div class="calc-box">
+
+<label>Estimated Sales</label>
+
+<input
+id="sales"
+type="number"
+placeholder="100"
+/>
+
+</div>
+
+</div>
+
+
+<button
+class="primary"
+onclick="calculateRevenue()"
+>
+
+Calculate Revenue 📈
+
+</button>
+
+
+<div
+id="calcResult"
+class="calc-result"
+>
+
+Enter product numbers to see an estimate.
+
+</div>
+
+</div>
+
+
+<!-- PLANS -->
+
+<div class="card">
+
+<h2>💳 Choose Your Plan</h2>
+
+<div class="plans">
+
+
+<div class="plan">
+
+<h3>Basic</h3>
+
+<div class="price">
+$2
+</div>
+
+<p>
+50 AI Credits
+</p>
+
+<button
+class="primary"
+onclick="buyPlan('Basic')"
+>
+
+Choose Basic
+
+</button>
+
+</div>
+
+
+<div class="plan">
+
+<h3>Pro</h3>
+
+<div class="price">
+$3
+</div>
+
+<p>
+100 AI Credits
+</p>
+
+<button
+class="primary"
+onclick="buyPlan('Pro')"
+>
+
+Choose Pro
+
+</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<button
+onclick="logout()"
+style="background:#ef4444;color:white;margin-bottom:30px;"
+>
+
+Logout
+
+</button>
+
+
+</div>
+
+</div>
+
+
+<footer>
+
+© 2026 BizHelper AI — Smart Tools For Online Businesses
+
+</footer>
+
+
+<script>
+
+let currentUser = null;
+
+
+// LOGIN SCREEN
+
+function showLogin(){
+
+document
+.getElementById("loginBox")
+.classList.remove("hidden");
+
+document
+.getElementById("signupBox")
+.classList.add("hidden");
+
+}
+
+
+// SIGNUP SCREEN
+
+function showSignup(){
+
+document
+.getElementById("loginBox")
+.classList.add("hidden");
+
+document
+.getElementById("signupBox")
+.classList.remove("hidden");
+
+}
+
+
+// SIGNUP
+
+async function signup(){
+
+const name =
+document.getElementById("signupName").value;
+
+const email =
+document.getElementById("signupEmail").value;
+
+const password =
+document.getElementById("signupPassword").value;
+
+
+const response =
+await fetch("/api/signup",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+name,
+email,
+password
+})
+
+});
+
+
+const data =
+await response.json();
+
+
+document.getElementById("signupMessage")
+.innerText =
+data.message || data.error;
+
+}
+
+
+// LOGIN
+
+async function login(){
+
+const email =
+document.getElementById("loginEmail").value;
+
+const password =
+document.getElementById("loginPassword").value;
+
+
+const response =
+await fetch("/api/login",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+email,
+password
+})
+
+});
+
+
+const data =
+await response.json();
+
+
+if(!response.ok){
+
+document.getElementById("loginMessage")
+.innerText =
+data.error;
+
+return;
+
+}
+
+
+currentUser = data;
+
+
+document
+.getElementById("loginBox")
+.classList.add("hidden");
+
+
+document
+.getElementById("signupBox")
+.classList.add("hidden");
+
+
+document
+.getElementById("dashboard")
+.classList.remove("hidden");
+
+
+const name =
+data.name || data.email.split("@")[0];
+
+
+document.getElementById("welcomeName")
+.innerText = name;
+
+
+document.getElementById("userEmail")
+.innerText = data.email;
+
+
+document.getElementById("credits")
+.innerText = data.credits;
+
+
+document.getElementById("status")
+.innerText =
+data.owner ? "Owner 👑" : "Active";
+
+
+if(data.owner){
+
+document
+.getElementById("ownerBadge")
+.classList.remove("hidden");
+
+}
+
+
+document.getElementById("avatar")
+.innerText =
+name.charAt(0).toUpperCase();
+
+}
+
+
+// AI GENERATOR
+
+async function generate(){
+
+if(!currentUser){
+
+alert("Pehle login karo.");
+
+return;
+
+}
+
+
+const productName =
+document.getElementById("productName").value;
+
+const details =
+document.getElementById("productDetails").value;
+
+const task =
+document.getElementById("task").value;
+
+
+const resultBox =
+document.getElementById("result");
+
+
+resultBox.classList.remove("hidden");
+
+resultBox.innerText =
+"AI is working... 🤖";
+
+
+const response =
+await fetch("/api/generate",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+email:currentUser.email,
+
+productName,
+
+details:
+task +
+"\nProduct information:\n" +
+details
+
+})
+
+});
+
+
+const data =
+await response.json();
+
+
+if(!response.ok){
+
+resultBox.innerText =
+data.error || "Something went wrong.";
+
+return;
+
+}
+
+
+resultBox.innerText =
+data.result;
+
+
+document.getElementById("credits")
+.innerText =
+data.credits;
+
+}
+
+
+// REVENUE
+
+function calculateRevenue(){
+
+const price =
+Number(
+document.getElementById("sellPrice").value
+);
+
+const cost =
+Number(
+document.getElementById("productCost").value
+);
+
+const sales =
+Number(
+document.getElementById("sales").value
+);
+
+
+if(!price || !sales){
+
+document.getElementById("calcResult")
+.innerText =
+"Please enter selling price and sales.";
+
+return;
+
+}
+
+
+const revenue =
+price * sales;
+
+const profit =
+(price - cost) * sales;
+
+
+document.getElementById("calcResult")
+.innerHTML =
+
+"Estimated Revenue: <b>$" +
+revenue.toFixed(2) +
+"</b><br>" +
+
+"Estimated Profit: <b>$" +
+profit.toFixed(2) +
+"</b><br><br>" +
+
+"<small>⚠️ This is only an estimate, not guaranteed earnings.</small>";
+
+}
+
+
+// PLANS
+
+function buyPlan(plan){
+
+alert(
+plan +
+" plan selected. Payment system will be connected later."
+);
+
+}
+
+
+// LOGOUT
+
+function logout(){
+
+currentUser = null;
+
+document
+.getElementById("dashboard")
+.classList.add("hidden");
+
+showLogin();
+
+}
+
+</script>
+
+</body>
+</html>
