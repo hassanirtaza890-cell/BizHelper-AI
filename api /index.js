@@ -1,4 +1,4 @@
--import express from "express";
+import express from "express";
 import crypto from "crypto";
 
 const app = express();
@@ -16,8 +16,13 @@ function hashPassword(password) {
     .digest("hex");
 }
 
-// SIGNUP
-app.post("/api/signup", (req, res) => {
+app.get("/", (req, res) => {
+  res.json({
+    message: "BizHelper AI is running!"
+  });
+});
+
+app.post("/signup", (req, res) => {
   const { name, email, password } = req.body;
 
   if (!name || !email || !password) {
@@ -37,25 +42,26 @@ app.post("/api/signup", (req, res) => {
   const isOwner =
     cleanEmail === OWNER_EMAIL.toLowerCase().trim();
 
-  users.push({
+  const user = {
     name: name.trim(),
     email: cleanEmail,
     password: hashPassword(password),
     credits: isOwner ? 999999 : 5,
     owner: isOwner
-  });
+  };
+
+  users.push(user);
 
   res.json({
     message: "Account created!",
-    name: name.trim(),
-    email: cleanEmail,
-    credits: isOwner ? 999999 : 5,
-    owner: isOwner
+    name: user.name,
+    email: user.email,
+    credits: user.credits,
+    owner: user.owner
   });
 });
 
-// LOGIN
-app.post("/api/login", (req, res) => {
+app.post("/login", (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -87,8 +93,7 @@ app.post("/api/login", (req, res) => {
   });
 });
 
-// AI GENERATE
-app.post("/api/generate", async (req, res) => {
+app.post("/generate", async (req, res) => {
   try {
     const { email, productName, details } = req.body;
 
@@ -108,6 +113,20 @@ app.post("/api/generate", async (req, res) => {
       });
     }
 
+    const prompt = `
+You are BizHelper AI, a professional business assistant.
+
+Product:
+${productName}
+
+Task:
+${details}
+
+Give a useful, clear and professional answer.
+
+Do not invent product specifications.
+`;
+
     const response = await fetch(
       "https://openrouter.ai/api/v1/chat/completions",
       {
@@ -125,18 +144,7 @@ app.post("/api/generate", async (req, res) => {
           messages: [
             {
               role: "user",
-              content: `
-You are BizHelper AI.
-
-Product:
-${productName}
-
-Task:
-${details}
-
-Give a useful, clear and professional answer.
-Do not invent product specifications.
-`
+              content: prompt
             }
           ]
         })
@@ -147,6 +155,7 @@ Do not invent product specifications.
 
     if (!response.ok) {
       console.error(data);
+
       return res.status(500).json({
         error: "OpenRouter AI error."
       });
